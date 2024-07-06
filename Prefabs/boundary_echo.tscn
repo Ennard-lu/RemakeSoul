@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://2envgd7akf2b"]
+
+[ext_resource type="Texture2D" uid="uid://digbmgdu3wg6j" path="res://icon.svg" id="1_sh4wl"]
+[ext_resource type="Script" path="res://Scripts/BurdenInstance.cs" id="2_r2xgo"]
+[ext_resource type="Script" path="res://Scripts/AreaRegister.cs" id="3_adouk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3cv5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sh4wl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_240ep"]
+radius = 105.7
+
+[node name="Burden" type="AnimatedSprite2D" groups=["Burden"]]
+modulate = Color(1, 0.113725, 0.243137, 1)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_u3cv5")
+script = ExtResource("2_r2xgo")
+burden = 1
+
+[node name="Area2D" type="Area2D" parent="." groups=["Burden"]]
+script = ExtResource("3_adouk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Burden"]]
+shape = SubResource("CircleShape2D_240ep")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -55.0
+offset_top = -30.0
+offset_right = 65.0
+offset_bottom = 25.0
+theme_override_font_sizes/font_size = 40
+text = "穿边界"
