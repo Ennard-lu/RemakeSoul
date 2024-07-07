@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://3j6b2rhiuxu"]
+
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="1_7syg8"]
+[ext_resource type="Script" path="res://Scripts/BurdenIcon.cs" id="2_r8umb"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="2_yta5i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o6it"]
+shader = ExtResource("2_yta5i")
+shader_parameter/line_color = Color(0.839216, 0.0313726, 0.0470588, 1)
+shader_parameter/amplitude = Vector4(0.6, 0.2, 0.1, 0.5)
+shader_parameter/begin = Vector4(0.3, 0, 0.5, 0)
+shader_parameter/freq = 5.0
+shader_parameter/line_thickness = 0.4
+
+[node name="WallThrough" type="Sprite2D"]
+texture = ExtResource("1_7syg8")
+region_enabled = true
+region_rect = Rect2(143, 14, 16, 17)
+script = ExtResource("2_r8umb")
+
+[node name="ExciteImg" type="Sprite2D" parent="." groups=["Burden"]]
+material = SubResource("ShaderMaterial_0o6it")
+texture = ExtResource("1_7syg8")
+region_enabled = true
+region_rect = Rect2(1, 15, 13, 17)

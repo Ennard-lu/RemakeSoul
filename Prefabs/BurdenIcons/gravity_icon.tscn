@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlvxe38bpxlcy"]
+
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="1_bgkv4"]
+[ext_resource type="Script" path="res://Scripts/BurdenIcon.cs" id="2_1uyq8"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="2_yrsun"]
+[ext_resource type="Script" path="res://Scripts/BurdenInstance.cs" id="3_4jx6n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivupb"]
+shader = ExtResource("2_yrsun")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/amplitude = Vector4(0.1, 0.3, 0.3, 0.5)
+shader_parameter/begin = null
+shader_parameter/freq = 3.0
+shader_parameter/line_thickness = 0.3
+
+[node name="Gravity" type="Sprite2D"]
+texture = ExtResource("1_bgkv4")
+region_enabled = true
+region_rect = Rect2(145, 30, 18, 18)
+script = ExtResource("2_1uyq8")
+
+[node name="ExciteImg" type="Sprite2D" parent="." groups=["Burden"]]
+material = SubResource("ShaderMaterial_ivupb")
+position = Vector2(-1, 1)
+texture = ExtResource("1_bgkv4")
+region_enabled = true
+region_rect = Rect2(0, 30, 18, 20)
+script = ExtResource("3_4jx6n")
+burden = 2

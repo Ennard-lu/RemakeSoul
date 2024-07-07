@@ -69,7 +69,7 @@ public class Gravity : BurdenBase {
     public override String GetName() => "Gravity";
     public override String Description() => "You are confined to the ground now.";
     public override bool CanPickUp(Player player, Vector2 pos) {
-        return Edge.Instance.AboveGround(player.Position);
+        return !player.InWall();
     }
     public override bool CanDispose(Player player) {
         return true;
@@ -81,20 +81,23 @@ public class Gravity : BurdenBase {
         player.EnableGravity(true);
     }
 
-    public override void OnTestingMovement(Player player) {
-        Vector2 velocity = player.Velocity;
-        if (!player.IsOnFloor())
-            velocity.Y += player.gravity * (float)player.deltaTime;
+    private Vector2 v = Vector2.Zero;
 
-        if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
-            velocity.Y = player.JumpVelocity;
+    public override void OnTestingMovement(Player player) {
+        if (!player.IsOnFloor())
+            v.Y += player.gravity * (float)player.deltaTime;
+
+        if (Input.IsActionJustPressed("jump") && player.IsOnFloor()) {
+            v.Y = player.JumpVelocity;
+        }
+            
 
         if (player.direction != Vector2.Zero) {
-            velocity.X = player.direction.X * player.Speed;
+            v.X = player.direction.X * player.Speed;
         } else {
-            velocity.X = Mathf.MoveToward(player.Velocity.X, 0, player.Speed);
+            v.X = Mathf.MoveToward(v.X, 0, player.Speed);
         }
 
-        player.velocity = velocity;
+        player.velocity = v;
     }
 }

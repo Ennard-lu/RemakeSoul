@@ -1,0 +1,202 @@
+[gd_scene load_steps=10 format=3 uid="uid://ur42ht56srah"]
+
+[ext_resource type="Script" path="res://Scripts/VolumePanel.cs" id="1_hsvnq"]
+[ext_resource type="Texture2D" uid="uid://yvshpdr2wu8q" path="res://Assets/ui_cut.png" id="2_y6shi"]
+[ext_resource type="FontFile" uid="uid://25jf8t4hocyn" path="res://Fonts/quaver.ttf" id="3_i4g3b"]
+[ext_resource type="Texture2D" uid="uid://bu4tc3shdw1dj" path="res://Assets/UI/Border/panel-border-004.png" id="4_1rvsp"]
+[ext_resource type="Texture2D" uid="uid://gjqbitacxnnb" path="res://Assets/UI/Border/panel-border-009.png" id="5_2m5gl"]
+[ext_resource type="Texture2D" uid="uid://6go17povefy" path="res://Assets/UI/Border/panel-border-005.png" id="6_htp1i"]
+[ext_resource type="Texture2D" uid="uid://doyrg4u2ame7f" path="res://Assets/UI/Border/panel-border-022.png" id="7_m8v83"]
+[ext_resource type="Texture2D" uid="uid://esuq16h3o6i4" path="res://Assets/UI/Border/panel-border-018.png" id="8_qxlui"]
+
+[sub_resource type="Theme" id="Theme_a4hgg"]
+
+[node name="VolumePanel" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hsvnq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_y6shi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_i4g3b")
+theme_override_font_sizes/font_size = 32
+text = "Music"
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+min_value = -6.0
+max_value = 72.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_i4g3b")
+theme_override_font_sizes/font_size = 32
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="SFXSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer2/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+min_value = -6.0
+max_value = 72.0
+allow_greater = true
+ticks_on_borders = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="OKButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_1rvsp")
+texture_pressed = ExtResource("5_2m5gl")
+texture_hover = ExtResource("6_htp1i")
+texture_disabled = ExtResource("7_m8v83")
+texture_focused = ExtResource("8_qxlui")
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3/OKButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -20.0
+offset_right = 24.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3/OKButton/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_a4hgg")
+theme_override_font_sizes/font_size = 32
+text = "OK"
+
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CancelButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_1rvsp")
+texture_pressed = ExtResource("5_2m5gl")
+texture_hover = ExtResource("6_htp1i")
+texture_disabled = ExtResource("7_m8v83")
+texture_focused = ExtResource("8_qxlui")
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3/CancelButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -20.0
+offset_right = 24.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3/CancelButton/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_a4hgg")
+theme_override_font_sizes/font_size = 24
+text = "Cancel"
+
+[node name="Control3" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2

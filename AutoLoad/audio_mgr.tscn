@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://dy7rm0yvqx6wl"]
+
+[ext_resource type="Script" path="res://Scripts/AudioMgr.cs" id="1_6oygy"]
+[ext_resource type="AudioStream" uid="uid://csxr0shnghrpw" path="res://Assets/Audio/button_click.mp3" id="2_antrw"]
+[ext_resource type="AudioStream" uid="uid://cypu2yh8afm11" path="res://Assets/Audio/door_open.mp3" id="2_juuj8"]
+[ext_resource type="AudioStream" uid="uid://d23ipedmnxlga" path="res://Assets/Audio/scene_enter.mp3" id="3_loifu"]
+[ext_resource type="AudioStream" uid="uid://w2epvglgxjge" path="res://Assets/Audio/fire_flame.mp3" id="3_nv0p7"]
+[ext_resource type="AudioStream" uid="uid://bpjo8ovcu86hh" path="res://Assets/Audio/horror_piano.mp3" id="4_oawhv"]
+[ext_resource type="AudioStream" uid="uid://b8shd4aoq4q7" path="res://Assets/Audio/BGM.mp3" id="4_umrnc"]
+[ext_resource type="AudioStream" uid="uid://cu67k4mvk484a" path="res://Assets/Audio/pick_up.mp3" id="5_yoeje"]
+
+[node name="AudioMgr" type="Node2D"]
+script = ExtResource("1_6oygy")
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_antrw")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="SceneEnter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_loifu")
+bus = &"SFX"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_umrnc")
+autoplay = true
+
+[node name="DoorOpen" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_juuj8")
+bus = &"SFX"
+
+[node name="FireFlame" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nv0p7")
+bus = &"SFX"
+
+[node name="HorrorPiano" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_oawhv")
+
+[node name="PickUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yoeje")
+bus = &"SFX"

@@ -2,6 +2,9 @@
 .vs/
 *.import
 .godot
-.sln
-.csproj
+*.sln
+*.exe
+*.zip
+*.7z
+*.csproj
 .godot/

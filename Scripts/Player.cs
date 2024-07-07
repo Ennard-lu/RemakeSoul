@@ -5,11 +5,11 @@ using System.Drawing;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public float Speed = 3000f;
-	[Export] public float JumpVelocity = -400.0f;
+	[Export] public float Speed = 170f;
+	[Export] public float JumpVelocity = -280f;
 
 	public Vector2 direction;
-	private List<BurdenBase> burdens = new();
+	public List<BurdenBase> burdens = new();
 	private CollisionShape2D closeCollsion;
 	private AreaRegister closeArea;
 	private AnimatedSprite2D anima;
@@ -17,7 +17,7 @@ public partial class Player : CharacterBody2D
 	private Vector2 screenOffset;
 	private Rect2 screenRect;
 	private Rect2 screenRectEdge;
-	private float enlargeRate = 1.2f;
+	private float enlargeRate = 20f;
 	private (int, int)?[] copyPositions = new (int, int)?[3];
 	private List<CollisionShape2D> collsionCopy = new();
 	private List<CollisionShape2D> areaCopy = new();
@@ -47,11 +47,15 @@ public partial class Player : CharacterBody2D
 		DisableAllCopy();
 		CollisionMask = 0;
 
-        screenOffset = GetViewport().GetVisibleRect().Abs().Size / GetViewport().GetCamera2D().Zoom;
-		screenRect.Position = -screenOffset / 2.0f;
+		screenOffset = GetViewport().GetVisibleRect().Abs().Size / GetViewport().GetCamera2D().Zoom;
+		screenRect.Position = Vector2.Zero;
 		screenRect.Size = screenOffset;
-		screenRectEdge.Position = -screenOffset / 2.0f * enlargeRate;
-        screenRectEdge.Size = screenOffset * enlargeRate;
+
+        GD.Print(screenOffset);
+
+		//screenRectEdge.Position = -screenOffset / 2.0f * enlargeRate;
+		//screenRectEdge.Size = screenOffset * enlargeRate;
+		screenRectEdge = screenRect.Grow(enlargeRate);
 
         GD.Print(screenRectEdge);
     }
@@ -59,33 +63,47 @@ public partial class Player : CharacterBody2D
     public override void _Process(double delta) {
         if (Input.IsActionJustPressed("pickup")) {
 			var burdens = closeArea.GetGroupOfAreas("Burden");
+			GD.Print(burdens.Count);
 			foreach (var burden in burdens) {
 				if (burden.GetParent() is BurdenInstance burdenInst) {
 					var burdenGen = BurdenBase.GetInstance(burdenInst.burden);
+					GD.Print(burdenGen.GetName());
                     if (burdenGen.CanPickUp(this, Position)) {
-						burdenGen.OnApplyBurden(this);
-						this.burdens.Add(burdenGen);
+						//if (GameMgr.Instance.CurrentGate == null) GD.Print("NULL");
+						GameMgr.Instance.CurrentGate.OnPlayerGetBurden(burdenGen);
+                        PutOnBurden(burdenGen);
 
-						GD.Print($"Player get burden {burdenGen.GetName()}");
+						AudioMgr.Instance.Play("PickUp");
+						
 
-						burdenInst.QueueFree();
-					}
-				} else {
+                        GD.Print($"Player get burden {burdenGen.GetName()}");
+
+                        burdenInst.QueueFree();
+                    }
+                } else {
 					GD.Print("Wrong in Player _Process!");
 				}
 			}
 		}
 
+		/*
 		if (Input.IsActionJustPressed("dispose") && burdens.Count !=0 ) {
 			if (burdens[0].CanDispose(this)) {
 				GameMgr.Instance.CreateBurden(burdens[0], Position);
 				burdens[0].OnCancelBurden(this);
 				burdens.RemoveAt(0);
 			}
-		}
+		} */
 		CheckCopies();
-    }
 
+		if (Velocity.X != 0) {
+			anima.FlipH = Velocity.X < 0;
+        }
+    }
+	public void PutOnBurden(BurdenBase burdenGen) {
+		burdenGen.OnApplyBurden(this);
+		burdens.Add(burdenGen);
+    }
     public override void _PhysicsProcess(double delta) {
 		deltaTime = delta;
 
@@ -111,9 +129,9 @@ public partial class Player : CharacterBody2D
 
 	public void EnableWallThrough(bool enable) {
 		if (enable)
-			RemoveCollsionLayerHelper(1);
+			RemoveCollsionLayerHelper(2);
 		else
-			AddCollsionLayerHelper(1);
+			AddCollsionLayerHelper(2);
 	}
 
 	public void EnableBoudaryEcho(bool enable) {
@@ -124,10 +142,13 @@ public partial class Player : CharacterBody2D
     }
 
     public void EnableGravity(bool enable) {
-        if (enable)
+        if (enable) {
+			RemoveCollsionLayerHelper(1);
             RemoveCollsionLayerHelper(9);
-        else
-            AddCollsionLayerHelper(9);
+        } else {
+			AddCollsionLayerHelper(1);
+			AddCollsionLayerHelper(9);
+		} 
     }
 
     public void CheckCopies() {
@@ -203,10 +224,7 @@ public partial class Player : CharacterBody2D
     }
 	
 	public bool HasNoCopy() {
-		for (int i = 0;i < 3; ++i) {
-			if (copyPositions[i] != null) return false;
-		}
-		return true;
+		return !closeArea.CheckGroupOfBodies("Edge");
 	}
 
 	public void AddCollsionLayerHelper(int num) {
@@ -218,6 +236,7 @@ public partial class Player : CharacterBody2D
         GD.Print(CollisionMask);
     }
 
+	public bool MeetWinConditions() => burdens.Count >= GameMgr.Instance.currentWinCount;
 
     public bool InWall() {
 		return closeArea.CheckGroupOfBodies("Wall");

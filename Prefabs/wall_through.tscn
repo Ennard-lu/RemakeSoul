@@ -1,26 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://jcipdwqgp7ge"]
+[gd_scene load_steps=7 format=3 uid="uid://jcipdwqgp7ge"]
 
-[ext_resource type="Texture2D" uid="uid://digbmgdu3wg6j" path="res://icon.svg" id="1_iqprr"]
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="1_f54ck"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="1_satce"]
 [ext_resource type="Script" path="res://Scripts/BurdenInstance.cs" id="2_h8o0j"]
 [ext_resource type="Script" path="res://Scripts/AreaRegister.cs" id="3_ad8fe"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_u3cv5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_iqprr")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o6it"]
+shader = ExtResource("1_satce")
+shader_parameter/line_color = Color(0.839216, 0.0313726, 0.0470588, 1)
+shader_parameter/amplitude = Vector4(0.6, 0.2, 0.1, 0.5)
+shader_parameter/begin = Vector4(0.3, 0, 0.5, 0)
+shader_parameter/freq = 5.0
+shader_parameter/line_thickness = 0.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_240ep"]
-radius = 105.7
+radius = 7.0
 
-[node name="Burden" type="AnimatedSprite2D" groups=["Burden"]]
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_u3cv5")
+[node name="Burden" type="Sprite2D" groups=["Burden"]]
+material = SubResource("ShaderMaterial_0o6it")
+texture = ExtResource("1_f54ck")
+region_enabled = true
+region_rect = Rect2(1, 15, 13, 17)
 script = ExtResource("2_h8o0j")
 
 [node name="Area2D" type="Area2D" parent="." groups=["Burden"]]
@@ -28,11 +28,3 @@ script = ExtResource("3_ad8fe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Burden"]]
 shape = SubResource("CircleShape2D_240ep")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -40.0
-offset_top = -30.0
-offset_right = 40.0
-offset_bottom = 25.0
-theme_override_font_sizes/font_size = 40
-text = "穿墙"

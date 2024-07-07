@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://hiolx3asqye"]
+
+[ext_resource type="Script" path="res://Scripts/fire.cs" id="1_gwioq"]
+[ext_resource type="Texture2D" uid="uid://ncronl7x6kc0" path="res://Assets/animation.png" id="1_ypq52"]
+[ext_resource type="Texture2D" uid="uid://nj7iaym8ekx7" path="res://Assets/Texture/fire_texture.png" id="2_2bmb5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31dgu"]
+radius = 47.41
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55688"]
+atlas = ExtResource("1_ypq52")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bub5v"]
+atlas = ExtResource("1_ypq52")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_02w75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55688")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bub5v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Fire" type="Area2D"]
+z_index = -1
+collision_mask = 2
+script = ExtResource("1_gwioq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_31dgu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_02w75")
+frame_progress = 0.704126
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -37)
+scale = Vector2(0.47482, 0.381166)
+enabled = false
+color = Color(0.8, 0.117647, 0.352941, 1)
+energy = 13.84
+texture = ExtResource("2_2bmb5")

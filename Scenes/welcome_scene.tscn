@@ -1,0 +1,185 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsqu4dmmpbtht"]
+
+[ext_resource type="Shader" path="res://Shaders/VHSEffect.gdshader" id="1_4k3b3"]
+[ext_resource type="Texture2D" uid="uid://bu4tc3shdw1dj" path="res://Assets/UI/Border/panel-border-004.png" id="1_v7bd8"]
+[ext_resource type="Texture2D" uid="uid://cjra0b4kt5she" path="res://Assets/start.png" id="2_fmd2p"]
+[ext_resource type="Texture2D" uid="uid://gjqbitacxnnb" path="res://Assets/UI/Border/panel-border-009.png" id="2_njnle"]
+[ext_resource type="FontFile" uid="uid://25jf8t4hocyn" path="res://Fonts/quaver.ttf" id="2_ssr76"]
+[ext_resource type="Texture2D" uid="uid://6go17povefy" path="res://Assets/UI/Border/panel-border-005.png" id="3_lvoyl"]
+[ext_resource type="Texture2D" uid="uid://doyrg4u2ame7f" path="res://Assets/UI/Border/panel-border-022.png" id="4_bup37"]
+[ext_resource type="Texture2D" uid="uid://esuq16h3o6i4" path="res://Assets/UI/Border/panel-border-018.png" id="5_0h0mh"]
+[ext_resource type="Script" path="res://Scripts/EventSystem.cs" id="6_ffrc7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4aal"]
+shader = ExtResource("1_4k3b3")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2
+shader_parameter/scanlines_width = 0.125
+shader_parameter/grille_opacity = 0.05
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 20.0
+shader_parameter/roll_variation = 2.0
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.02
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.6
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.464
+
+[sub_resource type="Theme" id="Theme_su4vn"]
+
+[node name="WelcomeScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UIRoot" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+clip_children = 1
+material = SubResource("ShaderMaterial_l4aal")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UIRoot"]
+layout_mode = 2
+texture = ExtResource("2_fmd2p")
+
+[node name="MainPanel" type="Panel" parent="CanvasLayer/UIRoot"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UIRoot/MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 300)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ssr76")
+theme_override_font_sizes/font_size = 128
+text = "Remake Soul"
+horizontal_alignment = 1
+
+[node name="Control3" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_v7bd8")
+texture_pressed = ExtResource("2_njnle")
+texture_hover = ExtResource("3_lvoyl")
+texture_disabled = ExtResource("4_bup37")
+texture_focused = ExtResource("5_0h0mh")
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer/StartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -20.0
+offset_right = 24.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="Label" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer/StartButton/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_su4vn")
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="Control2" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="SettingsButton" type="TextureButton" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_v7bd8")
+texture_pressed = ExtResource("2_njnle")
+texture_hover = ExtResource("3_lvoyl")
+texture_disabled = ExtResource("4_bup37")
+texture_focused = ExtResource("5_0h0mh")
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer/SettingsButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -20.0
+offset_right = 24.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="Label" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer/SettingsButton/CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_su4vn")
+theme_override_font_sizes/font_size = 32
+text = "Settings
+"
+
+[node name="Control3" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CanvasLayer/UIRoot/MainPanel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="EventSystem" type="Node" parent="."]
+script = ExtResource("6_ffrc7")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

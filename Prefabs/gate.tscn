@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://ohk0mcroktws"]
+
+[ext_resource type="Script" path="res://Scripts/Gate.cs" id="1_0uknw"]
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="2_6cqdd"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="2_857fh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh46j"]
+shader = ExtResource("2_857fh")
+shader_parameter/line_color = Color(0.254902, 0.168627, 0.94902, 1)
+shader_parameter/amplitude = Vector4(0.1, 0.4, 0.5, 0.5)
+shader_parameter/begin = null
+shader_parameter/freq = 4.0
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_730m1"]
+size = Vector2(65, 79)
+
+[node name="Gate" type="Area2D"]
+script = ExtResource("1_0uknw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_fh46j")
+texture = ExtResource("2_6cqdd")
+region_enabled = true
+region_rect = Rect2(61, -3, 70, 102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_730m1")

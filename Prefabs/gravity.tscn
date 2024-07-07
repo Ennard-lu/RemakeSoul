@@ -1,40 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://v0dtr1ygw1ru"]
+[gd_scene load_steps=7 format=3 uid="uid://v0dtr1ygw1ru"]
 
-[ext_resource type="Texture2D" uid="uid://digbmgdu3wg6j" path="res://icon.svg" id="1_5u0mg"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="1_icmwf"]
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="1_ub7x5"]
 [ext_resource type="Script" path="res://Scripts/BurdenInstance.cs" id="2_wtw3h"]
 [ext_resource type="Script" path="res://Scripts/AreaRegister.cs" id="3_a2115"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_u3cv5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_5u0mg")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivupb"]
+shader = ExtResource("1_icmwf")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/amplitude = Vector4(0.1, 0.3, 0.3, 0.5)
+shader_parameter/begin = null
+shader_parameter/freq = 3.0
+shader_parameter/line_thickness = 0.3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_240ep"]
-radius = 105.7
+radius = 8.7
 
-[node name="Burden" type="AnimatedSprite2D" groups=["Burden"]]
-modulate = Color(0.0431373, 1, 1, 1)
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_u3cv5")
+[node name="Burden" type="Sprite2D" groups=["Burden"]]
+material = SubResource("ShaderMaterial_ivupb")
+texture = ExtResource("1_ub7x5")
+region_enabled = true
+region_rect = Rect2(0, 30, 18, 20)
 script = ExtResource("2_wtw3h")
 burden = 2
 
 [node name="Area2D" type="Area2D" parent="." groups=["Burden"]]
+position = Vector2(0, -0.8)
 script = ExtResource("3_a2115")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Burden"]]
 shape = SubResource("CircleShape2D_240ep")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -35.0
-offset_top = -25.0
-offset_right = 45.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 40
-text = "重力"

@@ -3,7 +3,6 @@ using System;
 
 public partial class Edge : Node {
     private CollisionShape2D leftBound, rightBound, upBound, downBound;
-    private float groundY;
 
     public static Edge Instance;
 
@@ -13,13 +12,9 @@ public partial class Edge : Node {
         upBound = GetNode<CollisionShape2D>("UpBound/CollisionShape2D");
         downBound = GetNode<CollisionShape2D>("DownBound/CollisionShape2D");
 
-        groundY = GetNode<StaticBody2D>("GravityBase").Position.Y + 0.01f;
-
         EnableEdge(true);
         Instance = this;
     }
-
-    public bool AboveGround(Vector2 position) => position.Y < groundY;
 
 
     public void EnableEdge(bool enable) {

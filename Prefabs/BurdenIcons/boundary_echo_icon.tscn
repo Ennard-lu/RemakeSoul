@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3d3sh8dff8ic"]
+
+[ext_resource type="Texture2D" uid="uid://f4uva1610wap" path="res://Assets/Objects/obj.png" id="1_4ja1o"]
+[ext_resource type="Script" path="res://Scripts/BurdenIcon.cs" id="2_sa3yl"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="3_kvgmh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2hdyt"]
+shader = ExtResource("3_kvgmh")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/amplitude = Vector4(0, 0, 0, 0.8)
+shader_parameter/begin = null
+shader_parameter/freq = 4.0
+shader_parameter/line_thickness = 0.4
+
+[node name="BoundaryEcho" type="Sprite2D"]
+texture = ExtResource("1_4ja1o")
+region_enabled = true
+region_rect = Rect2(143, 0, 17, 16)
+script = ExtResource("2_sa3yl")
+
+[node name="ExciteImg" type="Sprite2D" parent="." groups=["Burden"]]
+material = SubResource("ShaderMaterial_2hdyt")
+texture = ExtResource("1_4ja1o")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 15)
